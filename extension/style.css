@@ -5,8 +5,9 @@
     right: 12px;
     width: 48px;
     height: 48px;
-    background-color: lightskyblue; /* Red when idle */
+    background-color: #2196F3; /* Material Blue 500 */
     border-radius: 50%;
+    border: none;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -19,7 +20,8 @@
   
   /* Hover State */
   .voice-dictation-button:hover {
-    background-color: darkblue; /* Lighter red on hover */
+    background-color: #1976D2; /* Material Blue 700 */
+
     transform: scale(1.05);
   }
   
@@ -29,7 +31,7 @@
   
   /* Active/Recording State */
   .voice-dictation-button.listening {
-    background-color: red; 
+    background-color: #D32F2F; 
     animation: pulse 1.5s infinite;
   }
   
