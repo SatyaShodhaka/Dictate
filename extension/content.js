@@ -63,7 +63,6 @@
     
         if (el.isContentEditable || el.tagName === 'TEXTAREA' || el.tagName === 'INPUT') {
             currentFocusedElement = el;
-            console.log('Focused element:', currentFocusedElement);
         }
     });
 
@@ -143,9 +142,6 @@
             }
         
             const data = await response.json();
-
-            // Log the response
-            console.log('Transcription response:', data);
         
             // Validate expected field exists in response
             if (!data.transcript) {
