@@ -42,7 +42,7 @@
                 stopRecording(micButton);
             });
             micButton.addEventListener('mouseleave', () => {
-                if (isListening) stopRecording(micButton);
+                if (isRecording) stopRecording(micButton);
             });
         });
     }
@@ -65,80 +65,102 @@
     observer.observe(document.body, {childList: true, subtree: true});
 
     // Function to handle the start of the recording
-    async function startRecording() {
+    async function startRecording(micButton) {
 
         // Start recording
         console.log('Recording started');
-    
-        // Get the audio stream
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        mediaRecorder = new MediaRecorder(stream);
-        
-
-        mediaRecorder.onstart = () => {
-            audioChunks = [];
-        };
-
-        mediaRecorder.ondataavailable = event => {
-            if (event.data.size > 0) {
-                audioChunks.push(event.data);
-            }
-        };
-        
-        mediaRecorder.onstop = async () => {
-            const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+        try {
+            // Get the audio stream
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            mediaRecorder = new MediaRecorder(stream);
             
-            // Send the audio to the API
-            sendAudioToAPI(audioBlob);
 
-        };
+            mediaRecorder.onstart = () => {
+                audioChunks = [];
+            };
 
-        mediaRecorder.start();
-        isRecording = true;
+            mediaRecorder.ondataavailable = event => {
+                if (event.data.size > 0) {
+                    audioChunks.push(event.data);
+                }
+            };
+            
+            mediaRecorder.onstop = async () => {
+                const audioBlob = new Blob(audioChunks, { type: 'audio/webm' }); //wav is not supported in chrome
+                
+                // Send the audio to the API
+                sendAudioToAPI(audioBlob);
 
+            };
+
+            mediaRecorder.start();
+            isRecording = true;
+
+            // Change the button color by adding listening class
+            micButton.classList.add('listening');
+
+        }
+        catch (error) {
+            console.error('Error starting audio recording:', error);
+            alert('Failed to start audio recording. ' + error.message);
+        }
+
+    }
+
+    // Function to handle the stop of the recording
+    function stopRecording(micButton) {
+
+        console.log('Stopping audio recording....');
+        if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+            mediaRecorder.stop();
+        }
+        isRecording = false;
+
+        // Change the button color by removing the listening class
+        micButton.classList.remove('listening');
+      
     }
 
 
     // Function to send the audio to the API
     async function sendAudioToAPI(audioBlob) {
+
         const formData = new FormData();
-        formData.append('audio', audioBlob);
+        formData.append('audio', audioBlob, 'audio.webm');
       
         try {
-          const response = await fetch('http://localhost:5000/transcribe', {
+            const response = await fetch('http://localhost:5000/transcribe', {
             method: 'POST',
             body: formData
-          });
-      
-          // Check for HTTP errors
-          if (!response.ok) {
+            });
+        
+            // Check for HTTP errors
+            if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
-          }
-      
-          const data = await response.json();
-      
-          // Validate expected field exists in response
-          if (!data.transcribedText || typeof data.transcribedText !== 'string') {
-            throw new Error('Invalid response format: "transcribedText" missing');
-          }
-      
-          console.log('Transcription received:', data.transcribedText);
-          insertText(data.transcribedText);
+            }
+        
+            const data = await response.json();
+
+            // Log the response
+            console.log('Transcription response:', data);
+        
+            // Validate expected field exists in response
+            if (!data.transcript) {
+                console.warn('Invalid response format: "transcript" missing');
+            }
+            else {
+                // Insert the text into the active element
+                insertText(data.transcript);
+            }
+            
       
         } catch (error) {
-          console.error('Error during audio transcription:', error);
-      
-          // Optionally show feedback to the user
-          alert(`Failed to transcribe audio. ${error.message}`);
+            console.error('Error during audio transcription:', error);
         }
     }
       
     
-    function stopRecording() {
-      mediaRecorder.stop();
-      isRecording = false;
-      
-    }
+    
     
     function insertText(text) {
         const el = lastFocusedElement;

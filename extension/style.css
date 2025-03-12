@@ -5,7 +5,7 @@
     right: 12px;
     width: 48px;
     height: 48px;
-    background-color: #ff4d4f; /* Red when idle */
+    background-color: lightskyblue; /* Red when idle */
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -19,13 +19,17 @@
   
   /* Hover State */
   .voice-dictation-button:hover {
-    background-color: #ff7875; /* Lighter red on hover */
+    background-color: darkblue; /* Lighter red on hover */
     transform: scale(1.05);
   }
   
+  .voice-dictation-button:active {
+    transform: scale(0.95);
+  }
+  
   /* Active/Recording State */
-  .voice-dictation-button.recording {
-    background-color: #52c41a; /* Green when recording */
+  .voice-dictation-button.listening {
+    background-color: red; 
     animation: pulse 1.5s infinite;
   }
   
@@ -46,24 +50,5 @@
     }
   }
   
-  /* Tooltip styles (Optional if you add tooltips later) */
-  .voice-dictation-button[title]:hover::after {
-    content: attr(title);
-    position: fixed; /* Use fixed instead of absolute to avoid clipping */
-    bottom: 80px; /* Adjust as needed */
-    left: auto;
-    right: 10px; /* Adjust as needed */
-    
-    background-color: rgba(0, 0, 0, 0.85);
-    color: #fff;
-    padding: 6px 10px;
-    border-radius: 4px;
-    font-size: 12px;
-    white-space: nowrap;
-    z-index: 9999;
-    
-    /* Box shadow for clarity */
-    box-shadow: 0px 2px 4px rgba(0,0,0,0.3);
-  }
   
   
