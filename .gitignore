@@ -134,3 +134,12 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+
+# Ignore 
+
+app/synthetic_data/*
+
+app/whisper-proper-noun-3.5WER/*
+
+app/whisper-proper-noun-3.5WER.zip
