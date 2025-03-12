@@ -15,10 +15,10 @@ Dictate/
 │   ├── uploads/                  # Temporary folder for uploaded audio files
 │   ├── whisper-proper-noun-3.5WER/  # Fine-tuned Whisper model directory
 │   └── app.py                    # Main Flask application
-├── baseline.py                   # Baseline evaluation script
-├── data_gen.py                   # Data generation script for synthetic data
-├── whisper-proper-noun-3.5WER.zip # Zipped model directory (optional)
-├── Whisper.ipynb                 # Notebook for training & evaluation logs
+│     |__ baseline.py                   # Baseline evaluation script
+│     ├── data_gen.py                   # Data generation script for synthetic data
+│     ├── Whisper.ipynb                 # Notebook for training & evaluation logs
+│ 
 ├── extension/                    # Frontend or browser extension (if applicable)
 ├── .gitignore
 └── README.md                     # Project documentation
