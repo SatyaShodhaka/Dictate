@@ -1,6 +1,6 @@
 # Dictate
-A chrome extension that helps you write (speak) emails with ease
 
+A chrome extension that helps you write (speak) emails with ease
 
 `Dictate` is a speech-to-text transcription app powered by OpenAI Whisper models. This project uses a fine-tuned version of Whisper (`whisper-proper-noun-3.5WER`) to improve accuracy on proper nouns, specifically tailored for custom synthetic datasets.
 
@@ -15,10 +15,10 @@ Dictate/
 │   ├── uploads/                  # Temporary folder for uploaded audio files
 │   ├── whisper-proper-noun-3.5WER/  # Fine-tuned Whisper model directory
 │   └── app.py                    # Main Flask application
-│     |__ baseline.py                   # Baseline evaluation script
-│     ├── data_gen.py                   # Data generation script for synthetic data
-│     ├── Whisper.ipynb                 # Notebook for training & evaluation logs
-│ 
+│   ├── baseline.py                   # Baseline evaluation script
+│   ├── data_gen.py                   # Data generation script for synthetic data
+│   ├── Whisper.ipynb                 # Notebook for training & evaluation logs
+│
 ├── extension/                    # Frontend or browser extension (if applicable)
 ├── .gitignore
 └── README.md                     # Project documentation
@@ -27,19 +27,23 @@ Dictate/
 ## ⚙️ Setup Instructions
 
 ### 1. Clone the Repository
+
 ```bash
 git clone https://github.com/SatyaShodhaka/Dictate.git
 cd Dictate
 ```
 
 ### 2. Install Python Dependencies
+
 Using Conda:
+
 ```bash
 conda create -n dictate python=3.9 -y
 conda activate dictate
 ```
 
 Install dependencies:
+
 ```bash
 pip install flask flask-cors torch torchaudio transformers pydub
 ```
@@ -48,15 +52,17 @@ pip install flask flask-cors torch torchaudio transformers pydub
 
 ## 📦 Download Fine-Tuned Model Weights & Dataset
 
-| Resource      | Link                                                      |
-|---------------|-----------------------------------------------------------|
+| Resource                                             | Link                                                                                                         |
+| ---------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
 | **Model Weights** (`whisper-proper-noun-3.5WER.zip`) | [Google Drive Link](https://drive.google.com/drive/folders/1u653ev0r6x2uQQRr9hpm13WNiUCiFN22?usp=drive_link) |
-| **Synthetic Dataset** (`synthetic_data.zip`)       | [Google Drive Link](https://drive.google.com/drive/folders/1neiJOYrOxRBJoK56YzNxziOM_V9119fS?usp=sharing) |
+| **Synthetic Dataset** (`synthetic_data.zip`)         | [Google Drive Link](https://drive.google.com/drive/folders/1neiJOYrOxRBJoK56YzNxziOM_V9119fS?usp=sharing)    |
 
 ### Unzip Model Weights
+
 ```bash
 unzip whisper-proper-noun-3.5WER.zip
 ```
+
 Extract into the root `Dictate/app` directory.
 
 ---
@@ -64,6 +70,7 @@ Extract into the root `Dictate/app` directory.
 ## 🔧 Running the App
 
 ### 1. Start Flask Backend
+
 ```bash
 cd app
 python app.py
@@ -77,12 +84,15 @@ python app.py
 ## 🎤 API Endpoints
 
 ### POST `/transcribe`
+
 Upload an audio file for transcription.
 
 #### Request
+
 - `audio`
 
 #### Response
+
 ```json
 {
   "transcript": "Your transcribed text here."
@@ -118,8 +128,8 @@ Upload an audio file for transcription.
 
 ---
 
-
 - Fine-tuned Whisper model and dataset curated by **Satya Shodhaka Rekha Prabhanjan**.
 
+```
 
 ```
