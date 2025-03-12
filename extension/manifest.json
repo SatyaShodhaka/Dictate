@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "Voice Dictation",
+  "version": "1.0",
+  "description": "Dictate emails in Gmail via speech-to-text.",
+  "permissions": ["activeTab", "scripting"],
+  "host_permissions": ["https://mail.google.com/*"],
+  "content_scripts": [
+    {
+      "matches": ["https://mail.google.com/*"],
+      "js": ["content.js"],
+      "css": ["style.css"]
+    }
+  ]
+}

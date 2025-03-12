@@ -1,0 +1,69 @@
+/* Voice Dictation Button - Default Styles */
+.voice-dictation-button {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    width: 48px;
+    height: 48px;
+    background-color: #ff4d4f; /* Red when idle */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-bottom: 50px;
+  }
+  
+  /* Hover State */
+  .voice-dictation-button:hover {
+    background-color: #ff7875; /* Lighter red on hover */
+    transform: scale(1.05);
+  }
+  
+  /* Active/Recording State */
+  .voice-dictation-button.recording {
+    background-color: #52c41a; /* Green when recording */
+    animation: pulse 1.5s infinite;
+  }
+  
+  
+  /* Pulse Animation */
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+      box-shadow: 0 0 0 0 rgba(82, 196, 26, 0.7);
+    }
+    70% {
+      transform: scale(1.05);
+      box-shadow: 0 0 0 10px rgba(82, 196, 26, 0);
+    }
+    100% {
+      transform: scale(1);
+      box-shadow: 0 0 0 0 rgba(82, 196, 26, 0);
+    }
+  }
+  
+  /* Tooltip styles (Optional if you add tooltips later) */
+  .voice-dictation-button[title]:hover::after {
+    content: attr(title);
+    position: fixed; /* Use fixed instead of absolute to avoid clipping */
+    bottom: 80px; /* Adjust as needed */
+    left: auto;
+    right: 10px; /* Adjust as needed */
+    
+    background-color: rgba(0, 0, 0, 0.85);
+    color: #fff;
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 9999;
+    
+    /* Box shadow for clarity */
+    box-shadow: 0px 2px 4px rgba(0,0,0,0.3);
+  }
+  
+  
